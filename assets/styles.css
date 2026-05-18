@@ -797,22 +797,19 @@ body {
 }
 /* Hero carousel */
 .hero-slides {
-  display: grid;
+  position: relative;
+  overflow: hidden;
 }
 .hero-slide {
-  grid-area: 1 / 1;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(18px);
-  pointer-events: none;
-  transition: opacity .6s ease, transform .6s ease, visibility 0s .6s;
+  display: none;
 }
 .hero-slide.active {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  pointer-events: auto;
-  transition: opacity .6s ease, transform .6s ease, visibility 0s 0s;
+  display: block;
+  animation: heroFadeIn .6s ease both;
+}
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 .hero-slide .lead {
   margin-top: 28px;

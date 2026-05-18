@@ -138,7 +138,11 @@
       slides[current].classList.remove('active');
       dots[current].classList.remove('active');
       current = idx;
-      slides[current].classList.add('active');
+      var s = slides[current];
+      s.style.animation = 'none';
+      s.offsetHeight;
+      s.style.animation = '';
+      s.classList.add('active');
       dots[current].classList.add('active');
       elapsed = 0;
       lastTick = performance.now();
