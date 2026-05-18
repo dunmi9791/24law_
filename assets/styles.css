@@ -797,22 +797,22 @@ body {
 }
 /* Hero carousel */
 .hero-slides {
-  position: relative;
-  min-height: clamp(220px, 28vw, 340px);
+  display: grid;
 }
 .hero-slide {
-  position: absolute;
-  top: 0; left: 0; right: 0;
+  grid-area: 1 / 1;
   opacity: 0;
+  visibility: hidden;
   transform: translateY(18px);
   pointer-events: none;
-  transition: opacity .6s ease, transform .6s ease;
+  transition: opacity .6s ease, transform .6s ease, visibility 0s .6s;
 }
 .hero-slide.active {
-  position: relative;
   opacity: 1;
+  visibility: visible;
   transform: translateY(0);
   pointer-events: auto;
+  transition: opacity .6s ease, transform .6s ease, visibility 0s 0s;
 }
 .hero-slide .lead {
   margin-top: 28px;
