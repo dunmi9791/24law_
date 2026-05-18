@@ -795,6 +795,72 @@ body {
   font-style: italic;
   max-width: 36ch;
 }
+/* Hero carousel */
+.hero-slides {
+  position: relative;
+  min-height: clamp(220px, 28vw, 340px);
+}
+.hero-slide {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  opacity: 0;
+  transform: translateY(18px);
+  pointer-events: none;
+  transition: opacity .6s ease, transform .6s ease;
+}
+.hero-slide.active {
+  position: relative;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.hero-slide .lead {
+  margin-top: 28px;
+  max-width: 52ch;
+}
+.hero-carousel-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 28px;
+}
+.hero-dots {
+  display: flex;
+  gap: 10px;
+}
+.hero-dot {
+  width: 10px; height: 10px;
+  border-radius: 999px;
+  border: 1.5px solid var(--ink-mute);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: background .3s ease, border-color .3s ease, transform .3s ease;
+}
+.hero-dot.active {
+  background: var(--brass);
+  border-color: var(--brass);
+  transform: scale(1.2);
+}
+.hero-dot:hover:not(.active) {
+  border-color: var(--ink-soft);
+}
+.hero-progress {
+  flex: 1;
+  max-width: 120px;
+  height: 2px;
+  background: var(--rule);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.hero-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--brass);
+  border-radius: 2px;
+  transition: width .1s linear;
+}
+
 .hero .quote-block .who {
   display: block;
   font-family: var(--sans);

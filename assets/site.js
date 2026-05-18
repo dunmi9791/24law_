@@ -121,6 +121,63 @@
     if (search) search.addEventListener('input', apply);
   });
 
+  // -------- Hero carousel --------
+  const carousel = document.querySelector('[data-hero-carousel]');
+  if (carousel) {
+    const slides = carousel.querySelectorAll('.hero-slide');
+    const dots = carousel.querySelectorAll('.hero-dot');
+    const progressBar = carousel.querySelector('.hero-progress-bar');
+    const INTERVAL = 5000;
+    let current = 0;
+    let timer = null;
+    let elapsed = 0;
+    let rafId = null;
+    let lastTick = 0;
+
+    function goTo(idx) {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = idx;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+      elapsed = 0;
+      lastTick = performance.now();
+    }
+
+    function tick(now) {
+      elapsed += now - lastTick;
+      lastTick = now;
+      if (progressBar) progressBar.style.width = Math.min((elapsed / INTERVAL) * 100, 100) + '%';
+      if (elapsed >= INTERVAL) {
+        goTo((current + 1) % slides.length);
+      }
+      rafId = requestAnimationFrame(tick);
+    }
+
+    function start() {
+      lastTick = performance.now();
+      rafId = requestAnimationFrame(tick);
+    }
+
+    function stop() {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        stop();
+        goTo(parseInt(dot.dataset.dot, 10));
+        start();
+      });
+    });
+
+    carousel.addEventListener('mouseenter', stop);
+    carousel.addEventListener('mouseleave', () => { lastTick = performance.now(); start(); });
+
+    start();
+  }
+
   // -------- Tweaks panel (accent color) --------
   // tiny custom panel — no React needed
   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
