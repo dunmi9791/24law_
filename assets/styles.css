@@ -180,7 +180,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  height: 84px;
+  height: 110px;
 }
 .brand {
   display: inline-flex;
@@ -1041,7 +1041,7 @@ body {
 .tweaks-hidden { display: none !important; }
 
 /* Logo wordmark in header (text fallback) */
-.logo-img { height: clamp(42px, 6.3vw, 108px); width: auto; }
+.logo-img { height: clamp(54px, 8vw, 130px); width: auto; }
 
 /* Selection list (large links) */
 .big-links { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--rule); }
