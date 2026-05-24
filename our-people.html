@@ -10,7 +10,7 @@
 
 <header class="site-header">
   <div class="wrap bar">
-    <a href="index.html" class="brand"><img src="assets/logo.png" alt="24 Law Chambers" class="logo-img" style="height:30px" /></a>
+    <a href="index.html" class="brand"><img src="assets/logo.png" alt="24 Law Chambers" class="logo-img" /></a>
     <nav class="nav-primary"><a href="index.html">Home</a><a href="about.html">About</a><a href="practice-areas.html">Practice Areas</a><a href="our-people.html" aria-current="page">Our People</a><a href="insights.html">Insights</a><a href="careers.html">Careers</a><a href="contact.html">Contact</a></nav>
     <div class="header-cta">
       <a class="btn btn-ink" href="contact.html">Book a Consultation<svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -25,8 +25,17 @@
 <section class="page-hero">
   <div class="wrap">
     <div class="crumbs reveal"><a href="index.html">Home</a><span class="sep">/</span><span class="here">Our People</span></div>
-    <h1 class="reveal">A bench of <em>specialists,</em><br/>built around your matter.</h1>
-    <p class="lead reveal">Search by name or filter by practice. Each member of our team brings a distinct background — together they form an unusually well-rounded firm.</p>
+    <div class="people-hero-split reveal">
+      <div class="people-hero-text">
+        <h1>The people behind <em>our excellence.</em></h1>
+        <p class="lead">A dual-jurisdiction leadership team bridging Nigerian and English law — search by name or filter by practice area.</p>
+      </div>
+      <div class="people-hero-video">
+        <video autoplay muted loop playsinline>
+          <source src="assets/our-people-video.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -37,58 +46,53 @@
         <svg style="position:absolute;left:0;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--ink-mute);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
         <input id="people-search" type="search" placeholder="Search by name…" style="width:100%;background:transparent;border:0;border-bottom:1px solid var(--rule-strong);padding:12px 0 12px 28px;font-size:16px;outline:none;color:var(--ink);" />
       </div>
-      <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute);">9 People</div>
+      <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute);">8 People</div>
     </div>
 
     <div class="reveal" data-filter-group data-filter-target=".team-card" data-filter-search="#people-search" data-filter-empty="#people-empty" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:48px;">
       <button class="chip active" data-filter="all">All</button>
-      <button class="chip" data-filter="banking">Banking &amp; Finance</button>
-      <button class="chip" data-filter="commercial">Commercial Transactions</button>
-      <button class="chip" data-filter="energy">Energy</button>
-      <button class="chip" data-filter="aviation">Aviation</button>
-      <button class="chip" data-filter="litigation">Litigation</button>
+      <button class="chip" data-filter="litigation">Litigation &amp; ADR</button>
+      <button class="chip" data-filter="commercial">Corporate &amp; Commercial</button>
+      <button class="chip" data-filter="energy">Energy &amp; Infrastructure</button>
+      <button class="chip" data-filter="regulatory">Regulatory</button>
       <button class="chip" data-filter="ip">Intellectual Property</button>
       <button class="chip" data-filter="tax">Taxation</button>
-      <button class="chip" data-filter="regulatory">Regulatory</button>
       <button class="chip" data-filter="real-estate">Real Estate</button>
+      <button class="chip" data-filter="immigration">Immigration</button>
     </div>
 
     <div class="team-grid reveal-stagger">
-      <a class="team-card" href="team-member.html" data-cats="banking,commercial">
-        <div class="photo"><span class="ph-fallback">OB</span><img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=600&q=80" alt="" onerror="this.style.display='none'" /></div>
-        <div class="meta"><div class="name">Oluwagbemi Banke</div><div class="role">Senior Partner</div><div class="focus">Banking · Commercial Transactions</div></div>
+      <a class="team-card" href="team-emonye-adekwu.html" data-cats="litigation,commercial">
+        <div class="photo"><span class="ph-fallback">EA</span><img src="assets/eo-adekwu.jpeg" alt="Emonye Adekwu" onerror="this.style.display='none'" /></div>
+        <div class="meta"><div class="name">Emonye Adekwu, SAN, FCIArb</div><div class="role">Principal Partner</div><div class="focus">Cross-border Litigation · Arbitration · M&amp;A</div></div>
       </a>
-      <a class="team-card" href="team-member.html" data-cats="energy,regulatory">
-        <div class="photo"><span class="ph-fallback">CA</span><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=600&q=80" alt="" onerror="this.style.display='none'" /></div>
-        <div class="meta"><div class="name">Christiana Ifeoluwa Ronke Adebisi</div><div class="role">Partner</div><div class="focus">Energy · Regulatory</div></div>
+      <a class="team-card" href="team-godwin-abarike.html" data-cats="litigation,regulatory">
+        <div class="photo"><img src="assets/godwin-abarike.jpg" alt="Godwin Abarike" /></div>
+        <div class="meta"><div class="name">Godwin Abarike</div><div class="role">Head of Chambers</div><div class="focus">Litigation · Project Finance · Risk Management</div></div>
       </a>
-      <a class="team-card" href="team-member.html" data-cats="litigation">
-        <div class="photo"><span class="ph-fallback">EO</span><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="" onerror="this.style.display='none'" /></div>
-        <div class="meta"><div class="name">Emeka Okeke</div><div class="role">Partner</div><div class="focus">Litigation · ADR</div></div>
+      <a class="team-card" href="team-andrew-renton.html" data-cats="energy">
+        <div class="photo"><span class="ph-fallback">AR</span></div>
+        <div class="meta"><div class="name">Andrew Renton</div><div class="role">UK Partner &mdash; Castletown Law</div><div class="focus">Energy · Infrastructure · Oil &amp; Gas</div></div>
       </a>
-      <a class="team-card" href="team-member.html" data-cats="aviation,commercial">
-        <div class="photo"><span class="ph-fallback">GA</span><img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=600&q=80" alt="" onerror="this.style.display='none'" /></div>
-        <div class="meta"><div class="name">Godwin Abarike</div><div class="role">Partner</div><div class="focus">Aviation · Cross-border</div></div>
+      <a class="team-card" href="team-sopakirite-kurule-alele.html" data-cats="litigation,tax,real-estate,ip,commercial">
+        <div class="photo"><span class="ph-fallback">SK</span></div>
+        <div class="meta"><div class="name">Sopakirite Kurule-Alele</div><div class="role">Senior Associate</div><div class="focus">Dispute Resolution · Taxation · Real Estate · IP</div></div>
       </a>
-      <a class="team-card" href="team-member.html" data-cats="real-estate,commercial">
-        <div class="photo"><span class="ph-fallback">TO</span><img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80" alt="" onerror="this.style.display='none'" /></div>
-        <div class="meta"><div class="name">Temilade Onaoloapo</div><div class="role">Senior Associate</div><div class="focus">Real Estate · Commercial</div></div>
+      <a class="team-card" href="team-frederick-azubuike.html" data-cats="litigation,regulatory">
+        <div class="photo"><span class="ph-fallback">FA</span></div>
+        <div class="meta"><div class="name">Obi Frederick Azubuike</div><div class="role">Head, Administrative &amp; Employment Division</div><div class="focus">International Law · Human Rights · Probate</div></div>
       </a>
-      <a class="team-card" href="team-member.html" data-cats="ip,tax">
-        <div class="photo"><span class="ph-fallback">SK</span><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=80" alt="" onerror="this.style.display='none'" /></div>
-        <div class="meta"><div class="name">Sopakirite Kurule</div><div class="role">Associate</div><div class="focus">IP · Taxation</div></div>
+      <a class="team-card" href="team-emeka-okeke.html" data-cats="litigation,ip,energy,regulatory,immigration">
+        <div class="photo"><span class="ph-fallback">EO</span></div>
+        <div class="meta"><div class="name">Emeka Okeke</div><div class="role">Associate</div><div class="focus">Litigation · ADR · Telecoms · Data Protection</div></div>
       </a>
-      <a class="team-card" href="team-member.html" data-cats="banking,commercial">
-        <div class="photo"><span class="ph-fallback">DO</span><img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80" alt="" onerror="this.style.display='none'" /></div>
-        <div class="meta"><div class="name">David Ogebe</div><div class="role">Partner</div><div class="focus">Banking · Acquisition Finance</div></div>
+      <a class="team-card" href="team-edino-ilemona.html" data-cats="commercial,real-estate,ip">
+        <div class="photo"><img src="assets/edino-stephinie.jpg" alt="Edino Stephanie Ilemona" /></div>
+        <div class="meta"><div class="name">Edino Stephanie Ilemona</div><div class="role">Associate</div><div class="focus">Corporate Law · Property Law · IP</div></div>
       </a>
-      <a class="team-card" href="team-member.html" data-cats="litigation,regulatory">
-        <div class="photo"><span class="ph-fallback">EA</span><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=600&q=80" alt="" onerror="this.style.display='none'" /></div>
-        <div class="meta"><div class="name">E. O. Adekwu</div><div class="role">Partner</div><div class="focus">Litigation · Regulatory</div></div>
-      </a>
-      <a class="team-card" href="team-member.html" data-cats="commercial,tax">
-        <div class="photo"><span class="ph-fallback">BB</span><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80" alt="" onerror="this.style.display='none'" /></div>
-        <div class="meta"><div class="name">B. J. Bulama</div><div class="role">Of Counsel</div><div class="focus">Commercial · Taxation</div></div>
+      <a class="team-card" href="team-edmond-akuma.html" data-cats="">
+        <div class="photo"><span class="ph-fallback">EK</span></div>
+        <div class="meta"><div class="name">Edmond Akuma</div><div class="role">Accountant</div><div class="focus">Finance &amp; Accounts</div></div>
       </a>
     </div>
     <div id="people-empty" class="muted" style="display:none;text-align:center;padding:64px 0;font-style:italic;">No matches.</div>

@@ -15,7 +15,7 @@
 <header class="site-header">
   <div class="wrap bar">
     <a href="index.html" class="brand" aria-label="24 Law Chambers — Home">
-      <img src="assets/logo.png" alt="" class="logo-img" style="height:30px" />
+      <img src="assets/logo.png" alt="" class="logo-img" />
     </a>
     <nav class="nav-primary" aria-label="Primary">
       <a href="index.html" aria-current="page">Home</a>
@@ -108,9 +108,28 @@
       </div>
       <div class="right reveal">
         <div class="img-card">
-          <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=900&q=80"
-               alt="Architectural facade — column detail" loading="eager" onerror="this.style.display='none'" />
-          <span class="label">Lagos · Marble &amp; Light</span>
+          <div class="hero-img-slides">
+            <div class="hero-img active" data-img-slide="0">
+              <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=900&q=80"
+                   alt="Architectural facade — column detail" loading="eager" onerror="this.style.display='none'" />
+              <span class="label">Lagos · Marble &amp; Light</span>
+            </div>
+            <div class="hero-img" data-img-slide="1">
+              <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80"
+                   alt="Corporate advisory meeting" loading="lazy" onerror="this.style.display='none'" />
+              <span class="label">Strategic Advisory</span>
+            </div>
+            <div class="hero-img" data-img-slide="2">
+              <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=900&q=80"
+                   alt="Scales of justice" loading="lazy" onerror="this.style.display='none'" />
+              <span class="label">Dispute Resolution</span>
+            </div>
+            <div class="hero-img" data-img-slide="3">
+              <img src="assets/hero-slide-4.png"
+                   alt="Energy infrastructure and finance" loading="lazy" onerror="this.style.display='none'" />
+              <span class="label">Energy · Infrastructure · Finance</span>
+            </div>
+          </div>
         </div>
         <blockquote class="quote-block">
           "We&rsquo;re easy-going and open-minded, treating every client with enthusiasm, respect, and ethics — believing business can be both professional and fun."
@@ -403,43 +422,41 @@
         <span class="eyebrow"><span class="num">04</span> Our People</span>
       </div>
       <div>
-        <h2 class="h-display">A bench of <em>specialists,</em> assembled around your matter.</h2>
-        <p class="lead" style="margin-top: 28px;">Each client matter is staffed with the right combination of partners, associates and consultants — by discipline, not by hierarchy alone.</p>
+        <h2 class="h-display">The people behind <em>our excellence.</em></h2>
+        <p class="lead" style="margin-top: 28px;">A dual-jurisdiction team of partners, associates and consultants — bridging Nigerian and English law across every engagement.</p>
       </div>
     </div>
 
-    <div class="team-grid reveal-stagger">
-      <a class="team-card" href="team-member.html">
+    <div class="team-grid reveal-stagger" style="grid-template-columns:repeat(3,1fr);">
+      <a class="team-card" href="team-emonye-adekwu.html">
         <div class="photo">
-          <span class="ph-fallback">OB</span>
-          <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" onerror="this.style.display='none'" />
+          <span class="ph-fallback">EA</span>
+          <img src="assets/eo-adekwu.jpeg" alt="Emonye Adekwu" loading="lazy" onerror="this.style.display='none'" />
         </div>
         <div class="meta">
-          <div class="name">Oluwagbemi Banke</div>
-          <div class="role">Senior Partner</div>
-          <div class="focus">Banking · Commercial Transactions</div>
+          <div class="name">Emonye Adekwu, SAN, FCIArb</div>
+          <div class="role">Principal Partner</div>
+          <div class="focus">Cross-border Litigation · Arbitration · M&amp;A</div>
         </div>
       </a>
-      <a class="team-card" href="team-member.html">
+      <a class="team-card" href="team-godwin-abarike.html">
         <div class="photo">
-          <span class="ph-fallback">CA</span>
-          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" onerror="this.style.display='none'" />
+          <img src="assets/godwin-abarike.jpg" alt="Godwin Abarike" loading="lazy" />
         </div>
         <div class="meta">
-          <div class="name">Christiana Ifeoluwa Ronke Adebisi</div>
-          <div class="role">Partner</div>
-          <div class="focus">Energy · Regulatory</div>
+          <div class="name">Godwin Abarike</div>
+          <div class="role">Head of Chambers</div>
+          <div class="focus">Litigation · Project Finance · Risk Management</div>
         </div>
       </a>
-      <a class="team-card" href="team-member.html">
+      <a class="team-card" href="team-andrew-renton.html">
         <div class="photo">
-          <span class="ph-fallback">EO</span>
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="" loading="lazy" onerror="this.style.display='none'" />
+          <span class="ph-fallback">AR</span>
         </div>
         <div class="meta">
-          <div class="name">Emeka Okeke</div>
-          <div class="role">Partner</div>
-          <div class="focus">Litigation · ADR</div>
+          <div class="name">Andrew Renton</div>
+          <div class="role">UK Partner &mdash; Castletown Law</div>
+          <div class="focus">Energy · Infrastructure · Oil &amp; Gas</div>
         </div>
       </a>
     </div>
@@ -468,7 +485,7 @@
       <div>
         <a class="article-card" href="article.html" style="border-top:0;">
           <div style="aspect-ratio: 16/9; background: var(--paper-deep); position: relative; overflow: hidden; margin-bottom: 12px; border-radius: 2px;">
-            <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?auto=format&fit=crop&w=1200&q=80" alt="" style="width:100%;height:100%;object-fit:cover;filter:contrast(.95);" onerror="this.style.display='none'" />
+            <img src="assets/godwin-library.jpg" alt="" style="width:100%;height:100%;object-fit:cover;" />
           </div>
           <div class="meta"><span class="cat">Featured</span><span>· 12 min read</span><span>· May 2026</span></div>
           <h3 style="font-size: clamp(28px, 2.6vw, 40px);">24 Law now offers comprehensive citizenship and residency solutions</h3>
