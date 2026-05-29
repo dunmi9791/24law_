@@ -1067,5 +1067,125 @@ body {
   opacity: .9;
 }
 
+/* Capability document cards */
+.cap-docs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--rule);
+}
+@media (max-width: 900px) { .cap-docs-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .cap-docs-grid { grid-template-columns: 1fr; } }
+.cap-doc-card {
+  padding: 36px 28px 40px;
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+}
+.cap-doc-card:nth-child(4n) { border-right: 0; }
+@media (max-width: 900px) { .cap-doc-card:nth-child(2n) { border-right: 0; } }
+@media (max-width: 540px) { .cap-doc-card { border-right: 0; } }
+.cap-doc-card .doc-icon {
+  width: 40px; height: 40px; color: var(--brass-deep); margin-bottom: 20px;
+}
+.cap-doc-card h3 {
+  font-family: var(--display); font-size: 20px; font-weight: 500; line-height: 1.3;
+}
+.cap-doc-card p {
+  color: var(--ink-mute); font-size: 14.5px; margin-top: 10px; line-height: 1.55; flex: 1;
+}
+.cap-doc-card .btn-doc {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 20px; font-size: 13px; font-weight: 500;
+  letter-spacing: .04em; color: var(--brass-deep);
+  cursor: pointer; transition: color .25s var(--ease);
+}
+.cap-doc-card .btn-doc:hover { color: var(--ink); }
+.cap-doc-card .btn-doc svg { width: 14px; height: 14px; transition: transform .3s var(--ease); }
+.cap-doc-card .btn-doc:hover svg { transform: translateX(3px); }
+
+/* Capability request modal */
+.cap-modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(14,27,51,.55);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden;
+  transition: opacity .3s var(--ease), visibility .3s var(--ease);
+}
+.cap-modal-overlay.open { opacity: 1; visibility: visible; }
+.cap-modal {
+  background: var(--paper); border-radius: 8px;
+  width: 90%; max-width: 480px;
+  padding: 40px 36px 36px;
+  box-shadow: 0 24px 80px rgba(14,27,51,.25);
+  position: relative;
+  transform: translateY(20px); transition: transform .35s var(--ease);
+}
+.cap-modal-overlay.open .cap-modal { transform: translateY(0); }
+.cap-modal-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 32px; height: 32px;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--ink-mute); font-size: 18px;
+  transition: color .2s ease;
+}
+.cap-modal-close:hover { color: var(--ink); }
+.cap-modal h3 {
+  font-family: var(--display); font-size: 24px; font-weight: 500; margin-bottom: 6px;
+}
+.cap-modal .cap-modal-sub {
+  font-size: 14px; color: var(--ink-mute); margin-bottom: 28px; line-height: 1.5;
+}
+.cap-modal .form-grid { grid-template-columns: 1fr; gap: 16px; }
+.cap-modal .field input {
+  height: 46px; padding: 0 14px;
+  border: 1px solid var(--rule-strong); border-radius: 4px;
+  background: transparent; font-size: 15px;
+}
+.cap-modal .field input:focus { border-color: var(--ink); outline: none; }
+.cap-modal .btn-submit {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; height: 50px; margin-top: 8px;
+  background: var(--ink); color: var(--paper); border: 0; border-radius: 999px;
+  font-size: 14px; font-weight: 500; letter-spacing: .04em;
+  cursor: pointer;
+  transition: background .3s var(--ease);
+}
+.cap-modal .btn-submit:hover { background: var(--ink-deep); }
+.cap-modal .btn-submit:disabled { opacity: .6; cursor: wait; }
+.cap-modal .cap-modal-status {
+  font-size: 13px; margin-top: 12px; min-height: 18px; text-align: center;
+}
+.cap-modal .cap-modal-status.error { color: #B8453A; }
+.cap-modal .cap-modal-status.success { color: var(--brass-deep); }
+.cap-modal .cap-modal-disclaimer {
+  font-size: 12px; color: var(--ink-mute); line-height: 1.5; margin-top: 16px; text-align: center;
+}
+
+/* Modal success state */
+.cap-modal-success {
+  text-align: center; padding: 20px 0;
+}
+.cap-modal-success .check-icon {
+  width: 56px; height: 56px; color: var(--brass-deep); margin: 0 auto 20px;
+}
+.cap-modal-success h3 {
+  font-family: var(--display); font-size: 22px; font-weight: 500; margin-bottom: 8px;
+}
+.cap-modal-success p {
+  font-size: 14.5px; color: var(--ink-mute); line-height: 1.5; margin-bottom: 24px;
+}
+.cap-modal-success .btn-download {
+  display: inline-flex; align-items: center; gap: 10px;
+  height: 50px; padding: 0 28px;
+  background: var(--ink); color: var(--paper); border: 0; border-radius: 999px;
+  font-size: 14px; font-weight: 500; letter-spacing: .04em;
+  cursor: pointer; text-decoration: none;
+  transition: background .3s var(--ease);
+}
+.cap-modal-success .btn-download:hover { background: var(--ink-deep); }
+
 /* Visually hidden */
 .sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }

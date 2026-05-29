@@ -273,6 +273,157 @@
     window.parent.postMessage({ type: '__edit_mode_available' }, '*');
   }
 
+  // -------- Capability document request modal --------
+  (function initCapModal() {
+    var overlay = document.querySelector('[data-cap-overlay]');
+    if (!overlay) return;
+
+    var modal = overlay.querySelector('[data-cap-modal]');
+    var form = overlay.querySelector('[data-cap-form]');
+    var formView = overlay.querySelector('[data-cap-form-view]');
+    var successView = overlay.querySelector('[data-cap-success-view]');
+    var docNameEl = overlay.querySelector('[data-cap-doc-name]');
+    var docInput = overlay.querySelector('[data-cap-doc-input]');
+    var statusEl = overlay.querySelector('[data-cap-status]');
+    var submitBtn = overlay.querySelector('[data-cap-submit]');
+    var downloadLink = overlay.querySelector('[data-cap-download-link]');
+
+    var ODOO_URL = 'https://your-odoo-instance.com';
+    var ODOO_DB = 'your-database';
+    var ODOO_API_KEY = 'your-api-key';
+
+    var DOC_FILES = {
+      'strategic-mandates-profile': 'assets/docs/strategic-mandates-profile.pdf',
+      'public-revenue-recovery': 'assets/docs/public-revenue-recovery.pdf',
+      'energy-infrastructure': 'assets/docs/energy-infrastructure.pdf',
+      'nigeria-uk-counsel': 'assets/docs/nigeria-uk-counsel.pdf'
+    };
+
+    var currentDoc = '';
+
+    function openModal(docSlug, docTitle) {
+      currentDoc = docSlug;
+      docNameEl.textContent = docTitle;
+      docInput.value = docSlug;
+      formView.style.display = '';
+      successView.style.display = 'none';
+      statusEl.textContent = '';
+      statusEl.className = 'cap-modal-status';
+      form.reset();
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      var firstInput = form.querySelector('input[name="name"]');
+      if (firstInput) setTimeout(function() { firstInput.focus(); }, 100);
+    }
+
+    function closeModal() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('[data-cap-doc]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        openModal(btn.dataset.capDoc, btn.dataset.capTitle);
+      });
+    });
+
+    overlay.querySelector('[data-cap-close]').addEventListener('click', closeModal);
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) closeModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+    });
+
+    function sendToOdoo(data) {
+      return fetch(ODOO_URL + '/api/crm.lead', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + ODOO_API_KEY,
+          'DATABASE': ODOO_DB
+        },
+        body: JSON.stringify({
+          name: 'Capability Document Request: ' + data.document,
+          contact_name: data.name,
+          email_from: data.email,
+          partner_name: data.organisation || '',
+          description: 'Document requested: ' + data.document + '\nName: ' + data.name + '\nEmail: ' + data.email + '\nOrganisation: ' + (data.organisation || 'Not provided'),
+          type: 'opportunity',
+          tag_ids: [],
+          source_id: false
+        })
+      });
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var ok = true;
+      form.querySelectorAll('[data-required]').forEach(function(field) {
+        var input = field.querySelector('input');
+        var msg = field.querySelector('.err-msg');
+        if (!input.value.trim()) {
+          field.classList.add('error');
+          if (msg) msg.textContent = 'Required.';
+          ok = false;
+        } else if (input.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) {
+          field.classList.add('error');
+          if (msg) msg.textContent = 'Please enter a valid email.';
+          ok = false;
+        } else {
+          field.classList.remove('error');
+          if (msg) msg.textContent = '';
+        }
+      });
+
+      if (!ok) {
+        statusEl.textContent = 'Please correct the highlighted fields.';
+        statusEl.className = 'cap-modal-status error';
+        return;
+      }
+
+      var data = {
+        name: form.querySelector('[name="name"]').value.trim(),
+        email: form.querySelector('[name="email"]').value.trim(),
+        organisation: form.querySelector('[name="organisation"]').value.trim(),
+        document: currentDoc
+      };
+
+      submitBtn.disabled = true;
+      submitBtn.querySelector('span').textContent = 'Submitting…';
+      statusEl.textContent = '';
+      statusEl.className = 'cap-modal-status';
+
+      sendToOdoo(data)
+        .then(function(res) {
+          if (!res.ok) throw new Error('CRM error');
+          showSuccess();
+        })
+        .catch(function() {
+          showSuccess();
+        });
+    });
+
+    function showSuccess() {
+      submitBtn.disabled = false;
+      submitBtn.querySelector('span').textContent = 'Request Document';
+      formView.style.display = 'none';
+      successView.style.display = '';
+      var filePath = DOC_FILES[currentDoc] || '#';
+      downloadLink.href = filePath;
+    }
+
+    form.querySelectorAll('[data-required] input').forEach(function(el) {
+      el.addEventListener('input', function() {
+        var f = el.closest('[data-required]');
+        f.classList.remove('error');
+        var m = f.querySelector('.err-msg');
+        if (m) m.textContent = '';
+      });
+    });
+  })();
+
   // -------- Practice areas hero carousel --------
   (function initPACarousel() {
     var container = document.getElementById('paSlides');

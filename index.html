@@ -471,12 +471,62 @@
   </div>
 </section>
 
+<!-- ======= CAPABILITY DOCUMENTS ======= -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow"><span class="num">07</span> Capability Documents</span>
+      </div>
+      <div>
+        <h2 class="h-display">Request a <em>capability statement.</em></h2>
+        <p class="lead" style="margin-top: 28px;">Detailed profiles of our strategic positioning, sector expertise, and cross-border capability — available on request.</p>
+      </div>
+    </div>
+
+    <div class="cap-docs-grid reveal-stagger">
+      <div class="cap-doc-card">
+        <svg class="doc-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="4" width="28" height="32" rx="2"/><path d="M12 12h16M12 18h16M12 24h10"/><path d="M26 28l4 4" stroke-width="2"/></svg>
+        <h3>Strategic Mandates Profile</h3>
+        <p>An overview of our strategic positioning, mandate types, and the high-value matters we are built to handle.</p>
+        <button class="btn-doc" data-cap-doc="strategic-mandates-profile" data-cap-title="Strategic Mandates Profile">
+          Download Profile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+      <div class="cap-doc-card">
+        <svg class="doc-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="4" width="28" height="32" rx="2"/><path d="M12 12h16M12 18h16M12 24h10"/><circle cx="28" cy="28" r="6" fill="none"/></svg>
+        <h3>Public Revenue Recovery Capability Note</h3>
+        <p>How we assist public institutions to identify, validate, pursue, and recover outstanding revenues and institutional entitlements.</p>
+        <button class="btn-doc" data-cap-doc="public-revenue-recovery" data-cap-title="Public Revenue Recovery Capability Note">
+          Request Capability Note <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+      <div class="cap-doc-card">
+        <svg class="doc-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="4" width="28" height="32" rx="2"/><path d="M12 12h16M12 18h16M12 24h10"/><path d="M24 30l6-8" stroke-width="2"/></svg>
+        <h3>Energy, Power &amp; Infrastructure Capability Note</h3>
+        <p>Our advisory capability across disputes, regulation, enforcement, contracts, and sector debt in energy and infrastructure.</p>
+        <button class="btn-doc" data-cap-doc="energy-infrastructure" data-cap-title="Energy, Power &amp; Infrastructure Capability Note">
+          Request Capability Note <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+      <div class="cap-doc-card">
+        <svg class="doc-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="4" width="28" height="32" rx="2"/><path d="M12 12h16M12 18h16M12 24h10"/><path d="M22 28h8M26 24v8"/></svg>
+        <h3>Nigeria–UK Cross-Border Counsel One-Pager</h3>
+        <p>A concise profile of our cross-border capability for UK law firms, international counsel, and foreign investors.</p>
+        <button class="btn-doc" data-cap-doc="nigeria-uk-counsel" data-cap-title="Nigeria–UK Cross-Border Counsel One-Pager">
+          Request One-Pager <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ======= INSIGHTS ======= -->
 <section class="section">
   <div class="wrap">
     <div class="section-head reveal">
       <div>
-        <span class="eyebrow"><span class="num">07</span> Insights</span>
+        <span class="eyebrow"><span class="num">08</span> Insights</span>
       </div>
       <div>
         <h2 class="h-display">Practical legal <em>commentary.</em></h2>
@@ -533,7 +583,7 @@
   <div class="wrap">
     <div class="section-head reveal">
       <div>
-        <span class="eyebrow"><span class="num">08</span> Sectors</span>
+        <span class="eyebrow"><span class="num">09</span> Sectors</span>
       </div>
       <div>
         <h2 class="h-display">The sectors <em>we serve.</em></h2>
@@ -559,7 +609,7 @@
   <div class="wrap">
     <div class="section-head reveal" style="margin-bottom: 56px;">
       <div>
-        <span class="eyebrow" style="color:rgba(242,237,226,.6);"><span class="num">09</span> Get In Touch</span>
+        <span class="eyebrow" style="color:rgba(242,237,226,.6);"><span class="num">10</span> Get In Touch</span>
       </div>
       <div>
         <h2 class="h-display" style="color:var(--cream-on-ink);">When the matter requires <em>senior legal judgment.</em></h2>
@@ -644,6 +694,40 @@
     </div>
   </div>
 </footer>
+
+<!-- ======= CAPABILITY DOCUMENT REQUEST MODAL ======= -->
+<div class="cap-modal-overlay" data-cap-overlay>
+  <div class="cap-modal" data-cap-modal>
+    <button class="cap-modal-close" data-cap-close aria-label="Close">&times;</button>
+    <div data-cap-form-view>
+      <h3>Request <span data-cap-doc-name></span></h3>
+      <p class="cap-modal-sub">Enter your details below. We will send the document to your email and a member of our team may follow up.</p>
+      <form class="form-grid" data-cap-form>
+        <div class="field" data-required><label>Full name</label><input type="text" name="name" required /><div class="err-msg"></div></div>
+        <div class="field" data-required><label>Email</label><input type="email" name="email" required /><div class="err-msg"></div></div>
+        <div class="field"><label>Organisation</label><input type="text" name="organisation" /></div>
+        <input type="hidden" name="document" data-cap-doc-input />
+        <button type="submit" class="btn-submit" data-cap-submit>
+          <span>Request Document</span>
+          <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </form>
+      <div class="cap-modal-status" data-cap-status></div>
+      <p class="cap-modal-disclaimer">Your information will be shared with 24 Law Chambers to assess your enquiry. We do not share your details with third parties.</p>
+    </div>
+    <div data-cap-success-view style="display:none;">
+      <div class="cap-modal-success">
+        <svg class="check-icon" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="28" cy="28" r="24"/><path d="M18 28l7 7 13-13" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Request received.</h3>
+        <p>Thank you. Your document is ready to download.</p>
+        <a class="btn-download" data-cap-download-link href="#" download>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4v12M12 16l-5-5M12 16l5-5M4 20h16"/></svg>
+          Download Now
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script src="assets/site.js"></script>
 </body>
