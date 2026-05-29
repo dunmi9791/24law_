@@ -202,7 +202,7 @@ function buildArticlePage(article, relatedArticles) {
   const relatedHTML = relatedArticles.length
     ? relatedArticles
         .map(
-          (r) => `<a class="article-card" href="${r.slug.current}.html" style="border-top:0;padding:0;"><div class="meta"><span class="cat">${escapeHTML(CATEGORY_LABELS[r.category] || r.category)}</span><span>&middot; ${r.readTime} min</span></div><h3>${escapeHTML(r.title)}</h3><p>${escapeHTML(r.excerpt)}</p></a>`,
+          (r) => `<a class="article-card" href="/insights/${r.slug.current}/" style="border-top:0;padding:0;"><div class="meta"><span class="cat">${escapeHTML(CATEGORY_LABELS[r.category] || r.category)}</span><span>&middot; ${r.readTime} min</span></div><h3>${escapeHTML(r.title)}</h3><p>${escapeHTML(r.excerpt)}</p></a>`,
         )
         .join('\n      ')
     : ''
@@ -288,7 +288,7 @@ function buildInsightsPage(articles) {
   const rest = articles.slice(1)
 
   const featuredCard = featured
-    ? `<a class="article-card reveal" href="insights/${featured.slug.current}.html" data-cats="${featured.category}" style="border-top:1px solid var(--rule);display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(24px,4vw,56px);align-items:center;padding:40px 0;">
+    ? `<a class="article-card reveal" href="insights/${featured.slug.current}/" data-cats="${featured.category}" style="border-top:1px solid var(--rule);display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(24px,4vw,56px);align-items:center;padding:40px 0;">
       <div style="aspect-ratio:4/3;background:var(--paper-deep);overflow:hidden;border-radius:2px;">
         ${featured.heroImage ? `<img src="${urlFor(featured.heroImage).width(600).auto('format').url()}" alt="${escapeAttr(featured.heroImage?.alt || '')}" style="width:100%;height:100%;object-fit:cover;" />` : ''}
       </div>
@@ -304,7 +304,7 @@ function buildInsightsPage(articles) {
   const restCards = rest
     .map(
       (a) =>
-        `<a class="article-card" href="insights/${a.slug.current}.html" data-cats="${a.category}"><div class="meta"><span class="cat">${escapeHTML(CATEGORY_LABELS[a.category] || a.category)}</span><span>· ${a.readTime} min</span><span>· ${formatDate(a.publishedAt)}</span></div><h3>${escapeHTML(a.title)}</h3><p>${escapeHTML(a.excerpt)}</p><span class="more">Read More ${ARROW_SVG}</span></a>`,
+        `<a class="article-card" href="insights/${a.slug.current}/" data-cats="${a.category}"><div class="meta"><span class="cat">${escapeHTML(CATEGORY_LABELS[a.category] || a.category)}</span><span>· ${a.readTime} min</span><span>· ${formatDate(a.publishedAt)}</span></div><h3>${escapeHTML(a.title)}</h3><p>${escapeHTML(a.excerpt)}</p><span class="more">Read More ${ARROW_SVG}</span></a>`,
     )
     .join('\n      ')
 
@@ -372,7 +372,7 @@ function patchHomepageInsights(articles) {
   const featured = latest[0]
   const sidebar = latest.slice(1)
 
-  const featuredCard = `<a class="article-card" href="insights/${featured.slug.current}.html" style="border-top:0;">
+  const featuredCard = `<a class="article-card" href="insights/${featured.slug.current}/" style="border-top:0;">
           <div style="aspect-ratio: 16/9; background: var(--paper-deep); position: relative; overflow: hidden; margin-bottom: 12px; border-radius: 2px;">
             ${featured.heroImage ? `<img src="${urlFor(featured.heroImage).width(800).auto('format').url()}" alt="${escapeAttr(featured.heroImage?.alt || '')}" style="width:100%;height:100%;object-fit:cover;" />` : ''}
           </div>
@@ -385,7 +385,7 @@ function patchHomepageInsights(articles) {
   const sidebarCards = sidebar
     .map(
       (a) =>
-        `<a class="article-card" href="insights/${a.slug.current}.html">
+        `<a class="article-card" href="insights/${a.slug.current}/">
           <div class="meta"><span class="cat">${escapeHTML(CATEGORY_LABELS[a.category] || a.category)}</span><span>· ${a.readTime} min</span></div>
           <h3>${escapeHTML(a.title)}</h3>
           <p>${escapeHTML(a.excerpt)}</p>
@@ -497,9 +497,10 @@ async function main() {
       .filter((a) => a._id !== article._id)
       .slice(0, 3)
     const html = buildArticlePage(article, related)
-    const outPath = resolve(outDir, `${article.slug.current}.html`)
-    writeFileSync(outPath, html, 'utf-8')
-    console.log(`  ✓ insights/${article.slug.current}.html`)
+    const articleDir = resolve(outDir, article.slug.current)
+    if (!existsSync(articleDir)) mkdirSync(articleDir, {recursive: true})
+    writeFileSync(resolve(articleDir, 'index.html'), html, 'utf-8')
+    console.log(`  ✓ insights/${article.slug.current}/index.html`)
   }
 
   // Build insights listing page
