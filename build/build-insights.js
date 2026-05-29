@@ -207,7 +207,7 @@ function buildArticlePage(article, relatedArticles) {
         .join('\n      ')
     : ''
 
-  const P = '../'
+  const P = '/'
 
   return `<!doctype html>
 <html lang="en">
