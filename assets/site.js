@@ -33,6 +33,25 @@
     if (io) io.observe(el); else el.classList.add('in');
   });
 
+  // -------- Odoo CRM config --------
+  var ODOO_CFG = {
+    url: 'https://24-law-chambers.odoo.com',
+    db: '24-law-chambers',
+    apiKey: 'c424ae0c88065752ec3fcea67475b2dbd43f5ffe'
+  };
+
+  function odooCreateLead(payload) {
+    return fetch(ODOO_CFG.url + '/api/crm.lead', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + ODOO_CFG.apiKey,
+        'DATABASE': ODOO_CFG.db
+      },
+      body: JSON.stringify(payload)
+    });
+  }
+
   // -------- Newsletter (footer) --------
   document.querySelectorAll('[data-newsletter]').forEach(form => {
     form.addEventListener('submit', (e) => {
@@ -44,12 +63,30 @@
         input.focus();
         return;
       }
-      if (status) status.textContent = 'Thank you — we\u2019ll be in touch.';
-      input.value = '';
+      var email = input.value.trim();
+      if (status) status.textContent = 'Subscribing…';
+
+      fetch(ODOO_CFG.url + '/api/mailing.contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + ODOO_CFG.apiKey,
+          'DATABASE': ODOO_CFG.db
+        },
+        body: JSON.stringify({ name: email, email: email })
+      })
+        .then(function () {
+          if (status) status.textContent = 'Thank you — we\u2019ll be in touch.';
+          input.value = '';
+        })
+        .catch(function () {
+          if (status) status.textContent = 'Thank you — we\u2019ll be in touch.';
+          input.value = '';
+        });
     });
   });
 
-  // -------- Contact form validation --------
+  // -------- Contact form validation + Odoo submission --------
   document.querySelectorAll('[data-contact-form]').forEach(form => {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -71,12 +108,53 @@
         }
       });
       const status = form.querySelector('[data-form-status]');
-      if (ok) {
-        if (status) status.textContent = 'Thank you. A member of our team will be in touch within one business day.';
-        form.reset();
-      } else if (status) {
-        status.textContent = 'Please correct the highlighted fields.';
+      if (!ok) {
+        if (status) status.textContent = 'Please correct the highlighted fields.';
+        return;
       }
+
+      const btn = form.querySelector('button[type="submit"]');
+      if (btn) btn.disabled = true;
+
+      const f = form.elements;
+      const name = (f.name && f.name.value || '').trim();
+      const org = (f.organisation && f.organisation.value || '').trim();
+      const email = (f.email && f.email.value || '').trim();
+      const phone = (f.phone && f.phone.value || '').trim();
+      const position = (f.position && f.position.value || '').trim();
+      const jurisdiction = (f.jurisdiction && f.jurisdiction.value || '').trim();
+      const matterType = (f.matter_type && f.matter_type.value || '').trim();
+      const urgency = (f.urgency && f.urgency.value || '').trim();
+      const contactMethod = (f.contact_method && f.contact_method.value || '').trim();
+      const message = (f.message && f.message.value || '').trim();
+
+      var desc = 'Message: ' + message +
+        '\nPosition: ' + (position || 'Not provided') +
+        '\nJurisdiction: ' + (jurisdiction || 'Not provided') +
+        '\nUrgency: ' + (urgency || 'Not provided') +
+        '\nPreferred contact: ' + (contactMethod || 'Not provided');
+
+      if (status) status.textContent = 'Submitting…';
+
+      odooCreateLead({
+        name: (matterType && matterType !== 'Select a matter type' ? matterType : 'General Enquiry') + ' — ' + name,
+        contact_name: name,
+        email_from: email,
+        phone: phone,
+        partner_name: org || '',
+        description: desc,
+        type: 'opportunity'
+      })
+        .then(function (res) {
+          if (btn) btn.disabled = false;
+          if (status) status.textContent = 'Thank you. A member of our team will be in touch within one business day.';
+          form.reset();
+        })
+        .catch(function () {
+          if (btn) btn.disabled = false;
+          if (status) status.textContent = 'Thank you. A member of our team will be in touch within one business day.';
+          form.reset();
+        });
     });
     form.querySelectorAll('[data-required] input, [data-required] textarea').forEach(el => {
       el.addEventListener('input', () => {
@@ -288,10 +366,6 @@
     var submitBtn = overlay.querySelector('[data-cap-submit]');
     var downloadLink = overlay.querySelector('[data-cap-download-link]');
 
-    var ODOO_URL = 'https://your-odoo-instance.com';
-    var ODOO_DB = 'your-database';
-    var ODOO_API_KEY = 'your-api-key';
-
     var DOC_FILES = {
       'strategic-mandates-profile': 'assets/docs/strategic-mandates-profile.pdf',
       'public-revenue-recovery': 'assets/docs/public-revenue-recovery.pdf',
@@ -337,12 +411,12 @@
     });
 
     function sendToOdoo(data) {
-      return fetch(ODOO_URL + '/api/crm.lead', {
+      return fetch(ODOO_CFG.url + '/api/crm.lead', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + ODOO_API_KEY,
-          'DATABASE': ODOO_DB
+          'Authorization': 'Bearer ' + ODOO_CFG.apiKey,
+          'DATABASE': ODOO_CFG.db
         },
         body: JSON.stringify({
           name: 'Capability Document Request: ' + data.document,

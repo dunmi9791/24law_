@@ -59,13 +59,13 @@
         <span class="eyebrow"><span class="num">01</span> Send us a note</span>
         <h2 class="h-display" style="margin-top:24px;">Start the <em>conversation.</em></h2>
         <form class="form-grid" data-contact-form style="margin-top:36px;">
-          <div class="field" data-required><label>Full name</label><input type="text" required /><div class="err-msg"></div></div>
-          <div class="field"><label>Organisation</label><input type="text" /></div>
-          <div class="field" data-required><label>Email</label><input type="email" required /><div class="err-msg"></div></div>
-          <div class="field"><label>Phone</label><input type="tel" /></div>
-          <div class="field"><label>Position / Title</label><input type="text" /></div>
+          <div class="field" data-required><label>Full name</label><input type="text" name="name" required /><div class="err-msg"></div></div>
+          <div class="field"><label>Organisation</label><input type="text" name="organisation" /></div>
+          <div class="field" data-required><label>Email</label><input type="email" name="email" required /><div class="err-msg"></div></div>
+          <div class="field"><label>Phone</label><input type="tel" name="phone" /></div>
+          <div class="field"><label>Position / Title</label><input type="text" name="position" /></div>
           <div class="field"><label>Jurisdiction</label>
-            <select>
+            <select name="jurisdiction">
               <option>Select jurisdiction</option>
               <option>Nigeria</option>
               <option>United Kingdom</option>
@@ -74,7 +74,7 @@
             </select>
           </div>
           <div class="field full"><label>Matter type</label>
-            <select>
+            <select name="matter_type">
               <option>Select a matter type</option>
               <option>Public Revenue Recovery</option>
               <option>Energy &amp; Power</option>
@@ -91,7 +91,7 @@
             </select>
           </div>
           <div class="field"><label>Urgency</label>
-            <select>
+            <select name="urgency">
               <option>Select urgency</option>
               <option>Urgent — immediate attention required</option>
               <option>Standard — within one week</option>
@@ -99,7 +99,7 @@
             </select>
           </div>
           <div class="field"><label>Preferred contact method</label>
-            <select>
+            <select name="contact_method">
               <option>Select preference</option>
               <option>Email</option>
               <option>Phone</option>
@@ -107,7 +107,7 @@
               <option>In-person meeting</option>
             </select>
           </div>
-          <div class="field full" data-required><label>How can we help?</label><textarea rows="5" required placeholder="A brief description is enough — we&rsquo;ll follow up to scope properly."></textarea><div class="err-msg"></div></div>
+          <div class="field full" data-required><label>How can we help?</label><textarea rows="5" name="message" required placeholder="A brief description is enough — we&rsquo;ll follow up to scope properly."></textarea><div class="err-msg"></div></div>
           <div class="field full" style="font-size:13px;color:var(--ink-mute);line-height:1.6;">Information submitted through this form will be treated confidentially for the purpose of assessing whether we can assist. A lawyer-client relationship is established only after conflict checks, acceptance of instructions and written engagement terms.</div>
           <div class="field full" style="flex-direction:row;align-items:center;justify-content:space-between;gap:24px;">
             <div data-form-status class="muted" style="font-size:13px;"></div>
