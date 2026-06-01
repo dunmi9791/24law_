@@ -2,9 +2,60 @@ import 'dotenv/config';
 import express from 'express';
 import { request as httpsRequest } from 'https';
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import { dirname, resolve } from 'path';
+import { createHmac, timingSafeEqual } from 'crypto';
+import { execFile } from 'child_process';
 
 const app = express();
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// ---------------------------------------------------------------------------
+// Sanity Webhook — rebuilds insights when articles change
+// (registered before express.json() so it receives the raw body for HMAC)
+// ---------------------------------------------------------------------------
+
+const SANITY_WEBHOOK_SECRET = process.env.SANITY_WEBHOOK_SECRET || '24law';
+
+function verifySignature(payload, signature) {
+  const hmac = createHmac('sha256', SANITY_WEBHOOK_SECRET);
+  hmac.update(payload);
+  const digest = hmac.digest('base64');
+  try {
+    return timingSafeEqual(Buffer.from(signature), Buffer.from(digest));
+  } catch {
+    return false;
+  }
+}
+
+let buildInProgress = false;
+
+app.post('/api/sanity-webhook', express.raw({ type: '*/*' }), (req, res) => {
+  const signature = req.headers['sanity-webhook-signature'];
+  if (!signature || !verifySignature(req.body, signature)) {
+    return res.status(401).json({ error: 'Invalid signature' });
+  }
+
+  if (buildInProgress) {
+    return res.json({ status: 'build already in progress' });
+  }
+
+  buildInProgress = true;
+  console.log('[webhook] Sanity article change detected — rebuilding insights…');
+
+  const buildScript = resolve(__dirname, 'build', 'build-insights.js');
+  execFile('node', [buildScript], { cwd: __dirname }, (err, stdout, stderr) => {
+    buildInProgress = false;
+    if (err) {
+      console.error('[webhook] Build failed:', stderr || err.message);
+    } else {
+      console.log('[webhook] Build complete:\n' + stdout);
+    }
+  });
+
+  res.json({ status: 'rebuild triggered' });
+});
+
+// ---------------------------------------------------------------------------
 
 const ODOO_URL = process.env.ODOO_URL || 'https://24-law-chambers.odoo.com';
 const ODOO_DB = process.env.ODOO_DB || '24-law-chambers';
@@ -70,7 +121,6 @@ app.post('/api/odoo/:model', async (req, res) => {
   }
 });
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.static(__dirname, { extensions: ['html'] }));
 
 export { app };
