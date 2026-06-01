@@ -1,6 +1,7 @@
 {
   "type": "module",
   "scripts": {
+    "start": "node server.js",
     "build:insights": "node build/build-insights.js",
     "studio": "cd studio && npx sanity dev"
   },
@@ -9,6 +10,7 @@
     "@sanity/client": "^6.29.1",
     "@sanity/image-url": "^1.2.0",
     "dotenv": "^16.6.1",
+    "express": "^5.2.1",
     "pdf-parse": "^2.4.5",
     "pdfjs-dist": "^5.7.284"
   }

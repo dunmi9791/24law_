@@ -33,21 +33,11 @@
     if (io) io.observe(el); else el.classList.add('in');
   });
 
-  // -------- Odoo CRM config --------
-  var ODOO_CFG = {
-    url: 'https://24-law-chambers.odoo.com',
-    db: '24-law-chambers',
-    apiKey: 'c424ae0c88065752ec3fcea67475b2dbd43f5ffe'
-  };
-
+  // -------- Odoo CRM via server proxy --------
   function odooCreateLead(payload) {
-    return fetch(ODOO_CFG.url + '/api/crm.lead', {
+    return fetch('/api/odoo/crm-lead', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + ODOO_CFG.apiKey,
-        'DATABASE': ODOO_CFG.db
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
   }
@@ -66,13 +56,9 @@
       var email = input.value.trim();
       if (status) status.textContent = 'Subscribing…';
 
-      fetch(ODOO_CFG.url + '/api/mailing.contact', {
+      fetch('/api/odoo/mailing-contact', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + ODOO_CFG.apiKey,
-          'DATABASE': ODOO_CFG.db
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: email, email: email })
       })
         .then(function () {
@@ -411,23 +397,15 @@
     });
 
     function sendToOdoo(data) {
-      return fetch(ODOO_CFG.url + '/api/crm.lead', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + ODOO_CFG.apiKey,
-          'DATABASE': ODOO_CFG.db
-        },
-        body: JSON.stringify({
-          name: 'Capability Document Request: ' + data.document,
-          contact_name: data.name,
-          email_from: data.email,
-          partner_name: data.organisation || '',
-          description: 'Document requested: ' + data.document + '\nName: ' + data.name + '\nEmail: ' + data.email + '\nOrganisation: ' + (data.organisation || 'Not provided'),
-          type: 'opportunity',
-          tag_ids: [],
-          source_id: false
-        })
+      return odooCreateLead({
+        name: 'Capability Document Request: ' + data.document,
+        contact_name: data.name,
+        email_from: data.email,
+        partner_name: data.organisation || '',
+        description: 'Document requested: ' + data.document + '\nName: ' + data.name + '\nEmail: ' + data.email + '\nOrganisation: ' + (data.organisation || 'Not provided'),
+        type: 'opportunity',
+        tag_ids: [],
+        source_id: false
       });
     }
 
