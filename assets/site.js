@@ -33,9 +33,11 @@
     if (io) io.observe(el); else el.classList.add('in');
   });
 
-  // -------- Odoo CRM via server proxy --------
+  // -------- Odoo CRM via Lambda proxy --------
+  var ODOO_PROXY = 'https://do6jhb37y2beepxpnrc7rrzwqe0ecmqo.lambda-url.us-east-2.on.aws';
+
   function odooCreateLead(payload) {
-    return fetch('/api/odoo/crm-lead', {
+    return fetch(ODOO_PROXY + '/api/odoo/crm-lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
@@ -56,7 +58,7 @@
       var email = input.value.trim();
       if (status) status.textContent = 'Subscribing…';
 
-      fetch('/api/odoo/mailing-contact', {
+      fetch(ODOO_PROXY + '/api/odoo/mailing-contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: email, email: email })
