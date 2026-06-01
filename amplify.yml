@@ -1,0 +1,19 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci
+    build:
+      commands:
+        - echo "Static site"
+  artifacts:
+    baseDirectory: /
+    files:
+      - '**/*.html'
+      - 'assets/**/*'
+      - 'insights/**/*'
+      - 'uploads/**/*'
+  cache:
+    paths:
+      - node_modules/**/*

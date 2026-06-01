@@ -5,16 +5,10 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
 const app = express();
-const PORT = process.env.PORT || 8091;
 
 const ODOO_URL = process.env.ODOO_URL || 'https://24-law-chambers.odoo.com';
 const ODOO_DB = process.env.ODOO_DB || '24-law-chambers';
 const ODOO_API_KEY = process.env.ODOO_API_KEY;
-
-if (!ODOO_API_KEY) {
-  console.error('ODOO_API_KEY is required in .env');
-  process.exit(1);
-}
 
 app.use(express.json());
 
@@ -79,6 +73,9 @@ app.post('/api/odoo/:model', async (req, res) => {
 const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.static(__dirname, { extensions: ['html'] }));
 
+export { app };
+
+const PORT = process.env.PORT || 8091;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
