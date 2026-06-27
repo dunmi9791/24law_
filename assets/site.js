@@ -27,7 +27,7 @@
         io.unobserve(e.target);
       }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }) : null;
+  }, { threshold: 0, rootMargin: '0px 0px -40px 0px' }) : null;
 
   document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => {
     if (io) io.observe(el); else el.classList.add('in');
