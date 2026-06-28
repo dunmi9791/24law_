@@ -187,32 +187,35 @@
     if (search) search.addEventListener('input', apply);
   });
 
-  // -------- Hero carousel --------
-  const carousel = document.querySelector('[data-hero-carousel]');
-  if (carousel) {
-    const slides = carousel.querySelectorAll('.hero-slide');
-    const dots = carousel.querySelectorAll('.hero-dot');
-    const imgSlides = carousel.querySelectorAll('.hero-img');
-    const progressBar = carousel.querySelector('.hero-progress-bar');
-    const INTERVAL = 5000;
+  // -------- Hero scenes (As Above, So Below) --------
+  const heroScenes = document.querySelector('[data-hero-scenes]');
+  if (heroScenes) {
+    const root = heroScenes.closest('.hero-aasb');
+    const scenes = Array.from(heroScenes.querySelectorAll('.hero-scene'));
+    const dots = Array.from(document.querySelectorAll('[data-hero-dots] .hero-aasb__dot'));
+    const INTERVAL = 7600;
     let current = 0;
-    let timer = null;
     let elapsed = 0;
-    let rafId = null;
     let lastTick = 0;
+    let rafId = null;
 
-    function goTo(idx) {
-      slides[current].classList.remove('active');
-      dots[current].classList.remove('active');
-      if (imgSlides[current]) imgSlides[current].classList.remove('active');
+    function setActive(idx) {
+      const prevDot = dots[current];
+      scenes[current].classList.remove('is-active');
+      scenes[current].setAttribute('aria-hidden', 'true');
+      if (prevDot) {
+        prevDot.classList.remove('is-active');
+        const pf = prevDot.querySelector('.fill');
+        if (pf) pf.style.transform = 'scaleX(0)';
+      }
       current = idx;
-      var s = slides[current];
-      s.style.animation = 'none';
-      s.offsetHeight;
-      s.style.animation = '';
-      s.classList.add('active');
-      dots[current].classList.add('active');
-      if (imgSlides[current]) imgSlides[current].classList.add('active');
+      const s = scenes[current];
+      // restart the entrance animation
+      s.classList.remove('is-active');
+      void s.offsetWidth;
+      s.classList.add('is-active');
+      s.removeAttribute('aria-hidden');
+      if (dots[current]) dots[current].classList.add('is-active');
       elapsed = 0;
       lastTick = performance.now();
     }
@@ -220,35 +223,26 @@
     function tick(now) {
       elapsed += now - lastTick;
       lastTick = now;
-      if (progressBar) progressBar.style.width = Math.min((elapsed / INTERVAL) * 100, 100) + '%';
-      if (elapsed >= INTERVAL) {
-        goTo((current + 1) % slides.length);
+      const dot = dots[current];
+      if (dot) {
+        const f = dot.querySelector('.fill');
+        if (f) f.style.transform = 'scaleX(' + Math.min(elapsed / INTERVAL, 1) + ')';
       }
+      if (elapsed >= INTERVAL) setActive((current + 1) % scenes.length);
       rafId = requestAnimationFrame(tick);
     }
 
-    function start() {
-      lastTick = performance.now();
-      rafId = requestAnimationFrame(tick);
-    }
+    function start() { lastTick = performance.now(); rafId = requestAnimationFrame(tick); }
+    function stop() { if (rafId) cancelAnimationFrame(rafId); rafId = null; }
 
-    function stop() {
-      if (rafId) cancelAnimationFrame(rafId);
-      rafId = null;
-    }
-
-    dots.forEach(dot => {
-      dot.addEventListener('click', () => {
-        stop();
-        goTo(parseInt(dot.dataset.dot, 10));
-        start();
-      });
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => { stop(); setActive(i); start(); });
     });
 
-    carousel.addEventListener('mouseenter', stop);
-    carousel.addEventListener('mouseleave', () => { lastTick = performance.now(); start(); });
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('mouseleave', () => { lastTick = performance.now(); start(); });
 
-    start();
+    if (scenes.length > 1) start();
   }
 
   // -------- Tweaks panel (accent color) --------
